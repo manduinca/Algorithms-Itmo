@@ -17,20 +17,16 @@ struct doublenode {
 
 
 class doubleStack {
-
     doublenode *p, *t;
 	int x;
-
 public:
-
 	doubleStack() {p = NULL;}
-
 	void push(int x) {
 		if(p != NULL) {
 			t = new doublenode;
 			t->val = x;
 			t->first = p;
-            if(p->val < x) t->valtwo = p->val;
+            if(p->valtwo < x) t->valtwo = p->valtwo;
             else t->valtwo = x;
 			p = t;
 		}
@@ -41,17 +37,14 @@ public:
 			p->first = NULL;
 		}
 	}
-
 	int pop() {
 		x = p->val;
 		p = p->first;
 		return x;
 	}
-
     int query() {
         return p->valtwo;
     }
-
     int is_empty() {
         if(p == NULL) return 1;
         return 0;
@@ -60,18 +53,14 @@ public:
 
 
 class minQueue {
-
     int m;
 	node *last, *first, *temp;
     doubleStack pila;
-
 public:
-
 	minQueue() {
 		last = NULL;
 		first = NULL;
 	}
-
 	void push(int x) {
 		if(last != NULL) {
 			temp = new node;
@@ -91,7 +80,6 @@ public:
             m = x;
 		}
 	}
-
 	int pop() {
         if(pila.is_empty()) {
             temp = last;
@@ -104,7 +92,6 @@ public:
         }
         return pila.pop();
 	}
-
     int query() {
         if(pila.is_empty()) return m;
         else if(first == NULL) return pila.query();
@@ -127,7 +114,6 @@ int main() {
 		scanf("%c", &c);
 		if(c == '-') {
 			x = cola.pop();
-			//printf("%d\n", x);
 		}
         else if (c == '?') {
 			x = cola.query();
