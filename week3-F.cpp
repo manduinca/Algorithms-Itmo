@@ -12,29 +12,30 @@ using std::cout;
 
 using namespace std;
 
-int B[100000];
-int t;
 
-int bs(int A[], int n, int k, int lo, int hi) {
-    if (lo > hi) return t;
+long long B[100005];
 
-    int mid = lo + (hi - lo) / 2;
+long long bs(long long A[], int n, long long k, long long lo, long long hi) {
+    while (hi - lo > 1) {
+        long long mid = lo + (hi - lo) / 2;
 
-    long long sum = B[0] = A[0];
-    for (int i = 1; i < n; i++) {
-        B[i] = A[i] - sum;
-        if (B[i] < mid) B[i] = mid;
-        if (mid > A[i]) B[i] = A[i];
-        sum += B[i];
+        long long sum = B[0] = A[0];
+        for (int i = 1; i < n; i++) {
+            B[i] = A[i] - sum;
+            if (B[i] < mid) B[i] = mid;
+            if (mid > A[i]) B[i] = A[i];
+            sum += B[i];
+        }
+
+        if (sum <= k) lo = mid;
+        else hi = mid;
     }
-
-    if (sum > k) return bs(A, n, k, lo, mid - 1);
-    else {t = mid; return bs(A, n, k, mid + 1, hi);}
+    return lo;
 }
 
 int main() {
-	int n, k, A[100000], men;
-    long long sum;
+	int n;
+    long long sum, A[100005], men, k;
 
 	cin >> n >> k;
     for (int i = 0; i < n; i++)
@@ -43,14 +44,13 @@ int main() {
     sort(A, A + n);
     sum = men = A[0];
     for (int i = 1; i < n; i++) {
-        int ai = A[i] - sum;
+        long long ai = A[i] - sum;
         sum += ai;
         if (ai < men) men = ai;
     }
-    t = A[0];
-    if (n == 1) cout << t;
+    if (n == 1) cout << A[0];
     else if (k == 1) cout << 0;
     else if (sum >= k) cout << men;
-    else cout << bs(A, n, k, 0, A[0]);
+    else cout << bs(A, n, k, 0, A[0] + 1);
 	return 0;
 }
