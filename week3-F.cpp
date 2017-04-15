@@ -50,7 +50,6 @@ int main() {
     }
     if (n == 1) cout << A[0];
     else if (k == 1) cout << 0;
-    else if (sum >= k) cout << men;
     else cout << bs(A, n, k, 0, A[0] + 1);
 	return 0;
 }
